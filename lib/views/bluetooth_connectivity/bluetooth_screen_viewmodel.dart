@@ -9,8 +9,10 @@ class BluetoothViewModel extends BaseViewModel {
   bool get isBluetoothEnabled => _isBluetoothEnabled;
   Future<void> enableBluetooth(context) async {
     setBusy(true);
-
-    if (await Permission.bluetoothConnect.request().isGranted) {
+    bool permOne = await Permission.bluetoothScan.request().isGranted;
+    bool permTwo = await Permission.bluetoothAdvertise.request().isGranted;
+    bool permThree = await Permission.bluetoothConnect.request().isGranted;
+    if (permOne && permTwo && permThree) {
       try {
         final bool enableResult =
             await platform.invokeMethod('enableBluetooth');
@@ -31,7 +33,6 @@ class BluetoothViewModel extends BaseViewModel {
     }
     setBusy(false);
   }
-
 
   void _showSnackBar(BuildContext context, String message) {
     final snackBar = SnackBar(

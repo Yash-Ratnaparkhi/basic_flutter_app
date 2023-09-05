@@ -3,7 +3,7 @@ class Constants {
   static const userProfileApiKey = 'https://randomuser.me/api/';
   static const errorImageMessage =
       "There was a problem in fetching this image. Please hit the below Refresh button again to load a new image.";
-  static const noImageMessage = "No valid Image";
+  static const noImageMessage = "No valid image url. Please try again !";
 
   static const refresh = 'Refresh';
   static const bluetoothConnectivity = 'Bluetooth Connectivity';

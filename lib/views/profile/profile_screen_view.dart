@@ -35,46 +35,44 @@ class ProfilePage extends StatelessWidget {
                           errorBuilder: (BuildContext context, Object exception,
                               StackTrace? stackTrace) {
                             Future.delayed(Duration.zero, () {
-                              model.handleErrrorData();
+                              model.handleErrorState();
                             });
                             return AlertDialog(
-                              title: Center(
-                                child: Column(
-                                  children: [
-                                    const Icon(
-                                      Icons.warning_rounded,
-                                      color: Colors.amber,
-                                      size: 36,
-                                    ),
-                                    const SizedBox(height: 8),
-                                    const Text(
-                                      Constants.noImageMessage,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 28.0),
-                                      child: ElevatedButton(
-                                        onPressed: () => model.fetchUserData(),
-                                        child: const Text(Constants.refresh),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              shadowColor: Colors.white,
+                              insetPadding: EdgeInsets.zero,
+                              icon: const Icon(
+                                Icons.warning_rounded,
+                                color: Colors.amber,
+                                size: 40,
                               ),
+                              title: const Text(
+                                Constants.noImageMessage,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              actions: [
+                                Center(
+                                  child: ElevatedButton(
+                                    onPressed: () => model.fetchUserData(),
+                                    child: const Text(Constants.refresh),
+                                  ),
+                                ),
+                              ],
                             );
                           },
                         ),
                         const SizedBox(height: 30),
-                        buildText('Name', model.username ?? ""),
-                        buildText('Location', model.location ?? ""),
-                        buildText('Email', model.email ?? ""),
-                        buildText('Date of Birth', model.dateOfBirth ?? ""),
-                        buildText('Days Since Registration',
-                            model.dateOfJoining ?? ""),
+                        if (model.showUserData) ...{
+                          buildText('Name', model.username ?? ""),
+                          buildText('Location', model.location ?? ""),
+                          buildText('Email', model.email ?? ""),
+                          buildText('Date of Birth', model.dateOfBirth ?? ""),
+                          buildText('Days Since Registration',
+                              model.dateOfJoining ?? ""),
+                        }
                       ],
                     ),
                   ),

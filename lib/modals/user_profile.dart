@@ -31,7 +31,6 @@ class Results {
     required this.registered,
     required this.phone,
     required this.cell,
-    required this.id,
     required this.picture,
     required this.nat,
   });
@@ -44,7 +43,7 @@ class Results {
   late final Registered registered;
   late final String phone;
   late final String cell;
-  late final Id id;
+
   late final Picture picture;
   late final String nat;
 
@@ -58,7 +57,7 @@ class Results {
     registered = Registered.fromJson(json['registered']);
     phone = json['phone'];
     cell = json['cell'];
-    id = Id.fromJson(json['id']);
+
     picture = Picture.fromJson(json['picture']);
     nat = json['nat'];
   }
@@ -74,7 +73,7 @@ class Results {
     data['registered'] = registered.toJson();
     data['phone'] = phone;
     data['cell'] = cell;
-    data['id'] = id.toJson();
+
     data['picture'] = picture.toJson();
     data['nat'] = nat;
     return data;
@@ -120,7 +119,7 @@ class Location {
   late final String city;
   late final String state;
   late final String country;
-  late final int postcode;
+  late final dynamic postcode;
   late final Coordinates coordinates;
   late final Timezone timezone;
 
@@ -152,7 +151,7 @@ class Street {
     required this.number,
     required this.name,
   });
-  late final int number;
+  late final dynamic number;
   late final String name;
 
   Street.fromJson(Map<String, dynamic> json) {
@@ -257,7 +256,7 @@ class Dob {
     required this.age,
   });
   late final String date;
-  late final int age;
+  late final dynamic age;
 
   Dob.fromJson(Map<String, dynamic> json) {
     date = json['date'];
@@ -278,7 +277,7 @@ class Registered {
     required this.age,
   });
   late final String date;
-  late final int age;
+  late final dynamic age;
 
   Registered.fromJson(Map<String, dynamic> json) {
     date = json['date'];
@@ -289,27 +288,6 @@ class Registered {
     final data = <String, dynamic>{};
     data['date'] = date;
     data['age'] = age;
-    return data;
-  }
-}
-
-class Id {
-  Id({
-    required this.name,
-    required this.value,
-  });
-  late final String name;
-  late final String value;
-
-  Id.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    value = json['value'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['name'] = name;
-    data['value'] = value;
     return data;
   }
 }
@@ -347,8 +325,8 @@ class Info {
     required this.version,
   });
   late final String seed;
-  late final int results;
-  late final int page;
+  late final dynamic results;
+  late final dynamic page;
   late final String version;
 
   Info.fromJson(Map<String, dynamic> json) {

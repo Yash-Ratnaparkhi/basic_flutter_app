@@ -23,7 +23,8 @@ class ProfileViewModel extends BaseViewModel {
   String? get dateOfJoining => _dateOfJoining;
   String? _userImage = "";
   String? get userImage => _userImage;
-
+  bool _showUserData = true;
+  bool get showUserData => _showUserData;
   String getName(Name name) {
     return '${name.title} ${name.first} ${name.last}';
   }
@@ -45,20 +46,19 @@ class ProfileViewModel extends BaseViewModel {
     return currentDate.difference(doj).inDays.toString();
   }
 
-  void handleErrrorData() {
-    _userImage = "no data found";
-    _username = "no data found";
-    _email = "no data found";
-    _dateOfBirth = "no data found";
-    _dateOfJoining = "no data found";
-    _location = "no data found";
+  void handleErrorState() {
+    _showUserData = false;
     notifyListeners();
   }
 
   Future<void> fetchUserData() async {
+    _showUserData = true;
+    notifyListeners();
     setBusy(true);
+
     try {
-      final response = await http.get(Uri.parse(Constants.userProfileApiKey));
+      final response = await http.get(Uri.parse(Constants.userProfileApiKey),
+          headers: {"Keep-Alive": "timeout=5, max=1"});
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
         final UserProfileModel data = UserProfileModel.fromJson(responseData);
@@ -76,6 +76,7 @@ class ProfileViewModel extends BaseViewModel {
         throw Exception('Failed to load user data');
       }
     } catch (error) {
+      print(error);
       setBusy(false);
     }
   }

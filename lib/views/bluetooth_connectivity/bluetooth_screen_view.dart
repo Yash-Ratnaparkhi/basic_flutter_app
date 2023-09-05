@@ -13,7 +13,7 @@ class BluetoothScreenView extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text(Constants.bluetoothConnectivity),
+            title: const Center(child: Text(Constants.bluetoothConnectivity)),
           ),
           body: Center(
             child: Column(
